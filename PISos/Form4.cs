@@ -10,27 +10,16 @@ using System.Windows.Forms;
 
 namespace PISos
 {
-	public partial class Login : Form
-	{
-		public Login()
-		{
-			InitializeComponent();
-		}
-
-        private void label1_Click(object sender, EventArgs e)
+    public partial class Form4 : Form
+    {
+        public Form4()
         {
-
+            InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Home newForm = new Home();
-            newForm.Show();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Form4 newForm = new Form4();
             newForm.Show();
         }
     }
