@@ -16,5 +16,25 @@ namespace PISos
         {
             InitializeComponent();
         }
+
+        private void Form5_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoadPhoto()
+        {
+
+        }
+
+        private void DeletePhoto()
+        {
+
+        }
+
+        private void Save()
+        {
+
+        }
     }
 }

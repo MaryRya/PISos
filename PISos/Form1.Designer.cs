@@ -103,6 +103,7 @@ namespace PISos
             this.Controls.Add(this.label1);
             this.Name = "Login";
             this.Text = "Реестр о пропаже домашних животных";
+            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

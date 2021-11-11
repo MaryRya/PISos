@@ -244,6 +244,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Form5";
             this.Text = "Подача объявления";
+            this.Load += new System.EventHandler(this.Form5_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

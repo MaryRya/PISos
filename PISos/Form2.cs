@@ -101,5 +101,45 @@ namespace PISos
             Form5 f2 = new Form5();
             f2.ShowDialog();
         }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Home_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Filtr()
+        {
+
+        }
+
+        private void Import()
+        {
+
+        }
+
+        private void AddAd()
+        {
+
+        }
+
+        private void OpenCard()
+        {
+
+        }
+
+        private void ChangeAd()
+        {
+
+        }
+
+        private void RemoveAd()
+        {
+
+        }
     }
 }

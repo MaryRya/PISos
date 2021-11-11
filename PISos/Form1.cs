@@ -33,5 +33,15 @@ namespace PISos
             Form4 newForm = new Form4();
             newForm.Show();
         }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Authorization()
+        {
+            
+        }
     }
 }
