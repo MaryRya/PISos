@@ -31,5 +31,18 @@ namespace PISos
         {
 
         }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        public class AddPassport
+        {
+            public void Passport(string animalowner, string identification, string vaccinationagainstrabies, string basicvaccination, string processing, string deworming, string sterilization, string reregistration, int pedigree)
+            {
+                
+            }
+        }
     }
 }

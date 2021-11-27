@@ -139,7 +139,50 @@ namespace PISos
 
         private void RemoveAd()
         {
+        }
+
+        private void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
+
+        public class Ad
+        {
+
+            public void Look(string petgender, int idphoto, int data, string locality, string petcathegory, string discription, int phone)
+            {
+                
+            }
+            public void LookMy()
+            {
+
+            }
+            public static Register AddAd(string petgender, int idphoto, int data, string locality, string petcathegory, string discription, int phone)
+            {
+                return new Register();
+            }
+
+            public static Register Change()
+            {
+                return new Register();
+            }
+
+            public static Register Delete()
+            {
+                return new Register();
+            }
+        }
+
+        private void tabPage8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+      
     }
 }

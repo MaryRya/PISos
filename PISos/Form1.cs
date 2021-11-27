@@ -43,5 +43,13 @@ namespace PISos
         {
             
         }
+        public class Autorizatioh
+        {
+            public void Role(string login, string password)
+            {
+
+            }
+
+        }
     }
 }
