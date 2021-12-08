@@ -1,6 +1,6 @@
 ﻿namespace PISos
 {
-    partial class Form6
+    partial class AdminForm
     {
         /// <summary>
         /// Required designer variable.
@@ -190,13 +190,13 @@
             this.dataGridView5.Size = new System.Drawing.Size(772, 414);
             this.dataGridView5.TabIndex = 0;
             // 
-            // Form6
+            // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(825, 522);
             this.Controls.Add(this.tabControl4);
-            this.Name = "Form6";
+            this.Name = "AdminForm";
             this.Text = "Главная страница";
             this.tabControl4.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);

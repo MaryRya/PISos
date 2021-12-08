@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PISos
 {
-    public partial class Form7 : Form
+    public partial class AnonForm : Form
     {
-        public Form7()
+        public AnonForm()
         {
             InitializeComponent();
         }

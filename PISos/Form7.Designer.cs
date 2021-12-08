@@ -1,6 +1,6 @@
 ﻿namespace PISos
 {
-    partial class Form7
+    partial class AnonForm
     {
         /// <summary>
         /// Required designer variable.
@@ -194,13 +194,13 @@
             this.dataGridView5.TabIndex = 0;
             this.dataGridView5.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView5_CellContentClick);
             // 
-            // Form7
+            // AnonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(813, 512);
             this.Controls.Add(this.tabControl4);
-            this.Name = "Form7";
+            this.Name = "AnonForm";
             this.Text = "Главная страница";
             this.tabControl4.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);

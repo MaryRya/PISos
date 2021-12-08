@@ -33,8 +33,8 @@ namespace PISos
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.btnLoginAnon = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -60,47 +60,50 @@ namespace PISos
             // 
             this.textBox1.Location = new System.Drawing.Point(9, 44);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(202, 22);
+            this.textBox1.Size = new System.Drawing.Size(317, 22);
             this.textBox1.TabIndex = 2;
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(9, 101);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(202, 22);
+            this.textBox2.Size = new System.Drawing.Size(317, 22);
             this.textBox2.TabIndex = 3;
             // 
-            // button1
+            // btnLogin
             // 
-            this.button1.Location = new System.Drawing.Point(12, 146);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 44);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Войти";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnLogin.Location = new System.Drawing.Point(12, 146);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(150, 44);
+            this.btnLogin.TabIndex = 4;
+            this.btnLogin.Text = "Войти";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // button2
+            // btnLoginAnon
             // 
-            this.button2.Location = new System.Drawing.Point(12, 196);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(147, 44);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Войти без регистрации";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnLoginAnon.Location = new System.Drawing.Point(179, 146);
+            this.btnLoginAnon.Name = "btnLoginAnon";
+            this.btnLoginAnon.Size = new System.Drawing.Size(147, 44);
+            this.btnLoginAnon.TabIndex = 5;
+            this.btnLoginAnon.Text = "Войти без регистрации";
+            this.btnLoginAnon.UseVisualStyleBackColor = true;
+            this.btnLoginAnon.Click += new System.EventHandler(this.btnLoginAnon_Click);
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(277, 275);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(376, 226);
+            this.Controls.Add(this.btnLoginAnon);
+            this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Login";
             this.Text = "Реестр о пропаже домашних животных";
             this.Load += new System.EventHandler(this.Login_Load);
@@ -115,8 +118,8 @@ namespace PISos
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.Button btnLoginAnon;
     }
 }
 

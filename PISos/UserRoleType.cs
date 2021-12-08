@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PISos
+namespace PISos.Db
 {
-    public class Register
+    public enum UserRoleType
     {
-
+        Admin = 1,
+        User = 2
     }
 }

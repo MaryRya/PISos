@@ -19,7 +19,7 @@ namespace PISos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Home newForm = new Home();
+            UserForm newForm = new UserForm();
             newForm.Show();
         }
     }
