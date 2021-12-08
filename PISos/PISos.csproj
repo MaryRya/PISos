@@ -90,6 +90,8 @@
     <Compile Include="Form7.Designer.cs">
       <DependentUpon>Form7.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyPet.cs" />
+    <Compile Include="PetInfo2.cs" />
     <Compile Include="PetInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -128,6 +130,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Properties\DataSources\PISos.Db.MyPet.datasource" />
+    <None Include="Properties\DataSources\PISos.Db.PetInfo.datasource" />
+    <None Include="Properties\DataSources\PISos.Db.PetInfo2.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

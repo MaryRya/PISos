@@ -10,17 +10,19 @@ using System.Windows.Forms;
 
 namespace PISos
 {
-    public partial class Form4 : Form
+    public partial class autorization : Form
     {
-        public Form4()
+        public autorization()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            UserForm newForm = new UserForm();
-            newForm.Show();
+            AnonForm newForm = new AnonForm();
+            this.Hide();
+            newForm.ShowDialog();
+            this.Show();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PISos.Db;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,61 +13,18 @@ namespace PISos
 {
     public partial class UserForm : Form
     {
+        private DataProvider Db;
         public UserForm()
         {
             InitializeComponent();
         }
 
-        private void tabPage4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            Form3 f2 = new Form3();
+            PetCard f2 = new PetCard();
             f2.ShowDialog();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void button8_Click(object sender, EventArgs e)
         {
@@ -109,7 +67,10 @@ namespace PISos
 
         private void Home_Load(object sender, EventArgs e)
         {
-
+            Db = new DataProvider();
+            petInfoBindingSource.DataSource = Db.GetLostPets();
+            petInfo2BindingSource.DataSource = Db.GetFindPets();
+            myPetBindingSource.DataSource = Db.GetMyPets();
         }
 
         private void Filtr()
@@ -173,19 +134,35 @@ namespace PISos
             }
         }
 
-        private void tabPage8_Click(object sender, EventArgs e)
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Db.Dispose();
+        }
+
+        private void tabControl4_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void tabPage2_Click(object sender, EventArgs e)
+        private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-		private void button1_Click_1(object sender, EventArgs e)
-		{
+        private void button19_Click(object sender, EventArgs e)
+        {
 
-		}
-	}
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            PetCard f2 = new PetCard();
+            f2.ShowDialog();
+        }
+
+        private void tabControl3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

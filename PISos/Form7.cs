@@ -1,4 +1,5 @@
 ﻿using System;
+using PISos.Db;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,34 +13,22 @@ namespace PISos
 {
     public partial class AnonForm : Form
     {
+        private DataProvider Db;
         public AnonForm()
         {
             InitializeComponent();
         }
 
-        private void dataGridView5_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void AnonForm_Load(object sender, EventArgs e)
         {
-
+            Db = new DataProvider();
+            petInfoBindingSource.DataSource = Db.GetLostPets();
+            petInfo2BindingSource.DataSource = Db.GetFindPets();
         }
 
-        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-        }
-
-        private void button16_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button17_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
+            Db.Dispose();
         }
     }
 }

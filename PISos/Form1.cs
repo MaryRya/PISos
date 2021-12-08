@@ -21,12 +21,6 @@ namespace PISos
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
 
         private void Authorization()
         {
@@ -44,7 +38,7 @@ namespace PISos
 
         private void btnLoginAnon_Click(object sender, EventArgs e)
         {
-            AnonForm newForm = new AnonForm();
+            autorization newForm = new autorization();
             this.Hide();
             newForm.ShowDialog();
             this.Show();
@@ -60,11 +54,6 @@ namespace PISos
             {
                 MessageBox.Show("Некорректная пара логинg/пароль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-                //AnonForm newForm = new AnonForm();
-                //this.Hide();
-                //newForm.ShowDialog();
-                //this.Show();
-                //return;
             }
 
             if (user.Role == UserRoleType.User)
@@ -96,10 +85,6 @@ namespace PISos
             Db.Dispose();
         }
 
-        private void tbLogin_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using PISos.Db;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,19 +13,23 @@ namespace PISos
 {
     public partial class AdminForm : Form
     {
+
+        private DataProvider Db;
         public AdminForm()
         {
             InitializeComponent();
         }
 
-        private void button20_Click(object sender, EventArgs e)
+        private void AdminForm_Load(object sender, EventArgs e)
         {
-
+            Db = new DataProvider();
+            petInfoBindingSource.DataSource = Db.GetLostPets();
+            petInfo2BindingSource.DataSource = Db.GetFindPets();
         }
 
-        private void button18_Click(object sender, EventArgs e)
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            Db.Dispose();
         }
     }
 }

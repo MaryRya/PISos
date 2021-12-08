@@ -45,7 +45,6 @@ namespace PISos
             this.label1.Size = new System.Drawing.Size(104, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Введите логин";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -106,6 +105,7 @@ namespace PISos
             this.MinimizeBox = false;
             this.Name = "Login";
             this.Text = "Реестр о пропаже домашних животных";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
             this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
