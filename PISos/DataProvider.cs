@@ -96,13 +96,13 @@ namespace PISos.Db
             return result1;
         }
 
-        public List<MyPet> GetMyPets()
-        {
+        public List<MyPet> GetMyPets(long id)
+        {            
             var result1 = new List<MyPet>();
             using (SqlCommand command = _connection.CreateCommand())
             {
-                command.CommandText = "SELECT pet_id, id_user, pet_name, pet_gender, locality, pet_category, birthday, breed, fio_user FROM [pets]";
-
+                command.CommandText = "SELECT pet_id, id_user, pet_name, pet_gender, locality, pet_category, birthday, breed, fio_user FROM [pets] where id_user = @id" ;
+                command.Parameters.AddWithValue("@id", id);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())

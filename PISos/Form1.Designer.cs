@@ -61,6 +61,7 @@ namespace PISos
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(317, 22);
             this.textBox1.TabIndex = 2;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
@@ -116,10 +117,10 @@ namespace PISos
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnLoginAnon;
+        public System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.TextBox textBox2;
     }
 }
 

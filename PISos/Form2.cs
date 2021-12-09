@@ -1,4 +1,5 @@
 ﻿using PISos.Db;
+using PISos.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,17 +15,11 @@ namespace PISos
     public partial class UserForm : Form
     {
         private DataProvider Db;
+        private UserInfo user;
         public UserForm()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            PetCard f2 = new PetCard();
-            f2.ShowDialog();
-        }
-
 
         private void button8_Click(object sender, EventArgs e)
         {
@@ -65,12 +60,16 @@ namespace PISos
 
         }
 
-        private void Home_Load(object sender, EventArgs e)
+        public void Home_Load(object sender, EventArgs e)
         {
+            user = Db.GetUser(textBox1.Text, textBox2.Text);
+            Session.User = user;
+            var id = user.Id;
             Db = new DataProvider();
             petInfoBindingSource.DataSource = Db.GetLostPets();
             petInfo2BindingSource.DataSource = Db.GetFindPets();
-            myPetBindingSource.DataSource = Db.GetMyPets();
+            myPetBindingSource.DataSource = Db.GetMyPets(id);
+            
         }
 
         private void Filtr()

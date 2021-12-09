@@ -44,7 +44,7 @@ namespace PISos
             this.Show();
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        public void btnLogin_Click(object sender, EventArgs e)
         {
             string login = textBox1.Text;
             string password = textBox2.Text;
@@ -59,6 +59,8 @@ namespace PISos
             if (user.Role == UserRoleType.User)
             {
                 UserForm newForm = new UserForm();
+                newForm.textBox1.Text = this.textBox1.Text;
+                newForm.textBox2.Text = this.textBox2.Text;
                 this.Hide();
                 newForm.ShowDialog();
                 this.Show();
@@ -85,6 +87,10 @@ namespace PISos
             Db.Dispose();
         }
 
+        public void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
