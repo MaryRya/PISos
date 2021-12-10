@@ -59,10 +59,8 @@ namespace PISos
             if (user.Role == UserRoleType.User)
             {
                 UserForm newForm = new UserForm();
-                newForm.textBox1.Text = this.textBox1.Text;
-                newForm.textBox2.Text = this.textBox2.Text;
                 this.Hide();
-                newForm.ShowDialog();
+                newForm.ShowDialog(user.Id);
                 this.Show();
                 return;
             }

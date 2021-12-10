@@ -30,7 +30,6 @@ namespace PISos.Db
             GC.SuppressFinalize(this);
         }
 
-
         public List<PetInfo> GetLostPets()
         {
             var result = new List<PetInfo>();
@@ -121,10 +120,439 @@ namespace PISos.Db
 
                         result1.Add(pet);
                     }
-
                 }
             }
+            return result1;
+        }
 
+        public List<PetInfo> GetMyAdsLost(long id)
+        {
+            var result1 = new List<PetInfo>();
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                command.CommandText = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and id_user = @id";
+                command.Parameters.AddWithValue("@id", id);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PetInfo pet = new PetInfo();
+
+                        pet.Id = reader.GetInt64(0);
+                        pet.Date = reader.GetDateTime(1);
+                        pet.Name = reader.GetString(2);
+                        pet.Category = reader.GetString(3);
+                        pet.Gender = reader.GetString(4);
+                        pet.Locality = reader.GetString(5);
+                        pet.Birthday = reader.GetDateTime(6);
+                        pet.Breed = reader.GetString(7);
+                        pet.UserId = reader.GetInt64(8);
+                        pet.Photo = reader.GetString(9);
+
+                        result1.Add(pet);
+                    }
+                }
+            }
+            return result1;
+        }
+
+        public List<PetInfo2> GetMyAdsFind(long id)
+        {
+            var result1 = new List<PetInfo2>();
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                command.CommandText = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and id_user = @id";
+                command.Parameters.AddWithValue("@id", id);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PetInfo2 pet = new PetInfo2();
+
+                        pet.Id = reader.GetInt64(0);
+                        pet.Gender = reader.GetString(1);
+                        pet.Date = reader.GetDateTime(2);
+                        pet.Locality = reader.GetString(3);
+                        pet.Category = reader.GetString(4);
+                        pet.Discription = reader.GetString(5);
+                        pet.Phone = reader.GetString(6);
+                        pet.UserId = reader.GetInt64(7);
+                        pet.Photo = reader.GetString(8);
+
+                        result1.Add(pet);
+                    }
+                }
+            }
+            return result1;
+        }
+
+        public List<MyPet> FiltrforMyPets(long id, string city, string category, DateTime dateTime)
+        {
+            var result1 = new List<MyPet>();
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                var str = "";
+                if (city == "" && category != "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT pet_id, id_user, pet_name, pet_gender, locality, pet_category, birthday, breed, fio_user FROM [pets] where id_user = @id and" +
+                        "(pet_category = @category and data=@dateTime)";
+                }
+                else if (city == "" && category == "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT pet_id, id_user, pet_name, pet_gender, locality, pet_category, birthday, breed, fio_user FROM [pets] where id_user = @id and" +
+                        "(data=@dateTime)";
+                }
+                else if (city != "" && category == "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT pet_id, id_user, pet_name, pet_gender, locality, pet_category, birthday, breed, fio_user FROM [pets] where id_user = @id and" +
+                        "(locality = @city)";
+                }
+                else if (city == "" && category != "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT pet_id, id_user, pet_name, pet_gender, locality, pet_category, birthday, breed, fio_user FROM [pets] where id_user = @id and" +
+                        "(pet_category = @category)";
+                }
+                else if (city != "" && category == "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT pet_id, id_user, pet_name, pet_gender, locality, pet_category, birthday, breed, fio_user FROM [pets] where id_user = @id and" +
+                        "(locality = @city and data=@dateTime)";
+                }
+                else if (city != "" && category != "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT pet_id, id_user, pet_name, pet_gender, locality, pet_category, birthday, breed, fio_user FROM [pets] where id_user = @id and" +
+                        "(pet_category = @category and locality = @city)";
+                }
+                else if (city != "" && category != "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT pet_id, id_user, pet_name, pet_gender, locality, pet_category, birthday, breed, fio_user FROM [pets] where id_user = @id and" +
+                        "(pet_category = @category and locality = @city and data=@dateTime)";
+                }
+                else if (city == "" && category == "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT pet_id, id_user, pet_name, pet_gender, locality, pet_category, birthday, breed, fio_user FROM [pets] where id_user = @id";
+                }
+
+                command.CommandText = str;
+                command.Parameters.AddWithValue("@city", city);
+                command.Parameters.AddWithValue("@category", category);
+                command.Parameters.AddWithValue("@dateTime", dateTime);
+                command.Parameters.AddWithValue("@id", id);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        MyPet pet = new MyPet();
+
+                        pet.Id = reader.GetInt64(0);
+                        pet.UserId = reader.GetInt64(1);
+                        pet.PetName = reader.GetString(2);
+                        pet.Gender = reader.GetString(3);
+                        pet.Locality = reader.GetString(4);
+                        pet.Category = reader.GetString(5);
+                        pet.Birthday = reader.GetDateTime(6);
+                        pet.Breed = reader.GetString(7);
+                        pet.FIO = reader.GetString(8);
+
+                        result1.Add(pet);
+                    }
+                }
+            }
+            return result1;
+        }
+
+        public List<PetInfo2> FiltrforMyAds1(long id, string city, string category, DateTime dateTime)
+        {
+            var result1 = new List<PetInfo2>();
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                var str = "";
+                if (city == "" && category != "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and id_user = @id and" +
+                        "(pet_category = @category and data=@dateTime)";
+                }
+                else if (city == "" && category == "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and id_user = @id and" +
+                        "(data=@dateTime)";
+                }
+                else if (city != "" && category == "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and id_user = @id and" +
+                        "(locality = @city)";
+                }
+                else if (city == "" && category != "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and id_user = @id and" +
+                        "(pet_category = @category)";
+                }
+                else if (city != "" && category == "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and id_user = @id and" +
+                        "(locality = @city and data=@dateTime)";
+                }
+                else if (city != "" && category != "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and id_user = @id and" +
+                        "(pet_category = @category and locality = @city)";
+                }
+                else if (city != "" && category != "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and id_user = @id and" +
+                        "(pet_category = @category and locality = @city and data=@dateTime)";
+                }
+                else if (city == "" && category == "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and id_user = @id";
+                }
+
+                command.CommandText = str;
+                command.Parameters.AddWithValue("@city", city);
+                command.Parameters.AddWithValue("@category", category);
+                command.Parameters.AddWithValue("@dateTime", dateTime);
+                command.Parameters.AddWithValue("@id", id);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PetInfo2 pet = new PetInfo2();
+
+                        pet.Id = reader.GetInt64(0);
+                        pet.Gender = reader.GetString(1);
+                        pet.Date = reader.GetDateTime(2);
+                        pet.Locality = reader.GetString(3);
+                        pet.Category = reader.GetString(4);
+                        pet.Discription = reader.GetString(5);
+                        pet.Phone = reader.GetString(6);
+                        pet.UserId = reader.GetInt64(7);
+                        pet.Photo = reader.GetString(8);
+
+                        result1.Add(pet);
+                    }
+                }
+            }
+            return result1;
+        }
+
+        public List<PetInfo> FiltrforMyAds2(long id, string city, string category, DateTime dateTime)
+        {
+            var result1 = new List<PetInfo>();
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                var str = "";
+                if (city == "" && category != "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and id_user = @id and" +
+                        "(pet_category = @category and data=@dateTime)";
+                }
+                else if (city == "" && category == "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and id_user = @id and" +
+                        "(data=@dateTime)";
+                }
+                else if (city != "" && category == "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and id_user = @id and" +
+                        "(locality = @city)";
+                }
+                else if (city == "" && category != "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and id_user = @id and" +
+                        "(pet_category = @category)";
+                }
+                else if (city != "" && category == "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and id_user = @id and" +
+                        "(locality = @city and data=@dateTime)";
+                }
+                else if (city != "" && category != "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and id_user = @id and" +
+                        "(pet_category = @category and locality = @city)";
+                }
+                else if (city != "" && category != "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and id_user = @id and" +
+                        "(pet_category = @category and locality = @city and data=@dateTime)";
+                }
+                else if (city == "" && category == "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and id_user = @id";
+                }
+
+                command.CommandText = str;
+                command.Parameters.AddWithValue("@city", city);
+                command.Parameters.AddWithValue("@category", category);
+                command.Parameters.AddWithValue("@dateTime", dateTime);
+                command.Parameters.AddWithValue("@id", id);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PetInfo pet = new PetInfo();
+
+                        pet.Id = reader.GetInt64(0);
+                        pet.Date = reader.GetDateTime(1);
+                        pet.Name = reader.GetString(2);
+                        pet.Category = reader.GetString(3);
+                        pet.Gender = reader.GetString(4);
+                        pet.Locality = reader.GetString(5);
+                        pet.Birthday = reader.GetDateTime(6);
+                        pet.Breed = reader.GetString(7);
+                        pet.UserId = reader.GetInt64(8);
+                        pet.Photo = reader.GetString(9);
+
+                        result1.Add(pet);
+                    }
+                }
+            }
+            return result1;
+        }
+
+        public List<PetInfo> FiltrforFind1(string city, string category, DateTime dateTime)
+        {
+            var result1 = new List<PetInfo>();
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                var str = "";
+                if (city == "" && category != "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and " +
+                        "(pet_category = @category and data=@dateTime)";
+                }
+                else if (city == "" && category == "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and " +
+                        "(data=@dateTime)";
+                }
+                else if (city != "" && category == "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and " +
+                        "(locality = @city)";
+                }
+                else if (city == "" && category != "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and " +
+                        "(pet_category = @category)";
+                }
+                else if (city != "" && category == "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and " +
+                        "(locality = @city and data=@dateTime)";
+                }
+                else if (city != "" && category != "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and " +
+                        "(pet_category = @category and locality = @city)";
+                }
+                else if (city != "" && category != "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo and " +
+                        "(pet_category = @category and locality = @city and data=@dateTime)";
+                }
+                else if (city == "" && category == "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_miss, data, pet_name, pet_category, pet_gender, locality, birthday, breed, id_user, photo.photo FROM [ads_missing], [photo_miss], [photo] where photo_miss.id_lost = ads_missing.id_miss and photo_miss.id_photo = photo.id_photo";
+                }
+
+                command.CommandText = str;
+                command.Parameters.AddWithValue("@city", city);
+                command.Parameters.AddWithValue("@category", category);
+                command.Parameters.AddWithValue("@dateTime", dateTime);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PetInfo pet = new PetInfo();
+
+                        pet.Id = reader.GetInt64(0);
+                        pet.Date = reader.GetDateTime(1);
+                        pet.Name = reader.GetString(2);
+                        pet.Category = reader.GetString(3);
+                        pet.Gender = reader.GetString(4);
+                        pet.Locality = reader.GetString(5);
+                        pet.Birthday = reader.GetDateTime(6);
+                        pet.Breed = reader.GetString(7);
+                        pet.UserId = reader.GetInt64(8);
+                        pet.Photo = reader.GetString(9);
+
+                        result1.Add(pet);
+                    }
+                }
+            }
+            return result1;
+        }
+
+        public List<PetInfo2> FiltrforFind2(string city, string category, DateTime dateTime)
+        {
+            var result1 = new List<PetInfo2>();
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                var str = "";
+                if (city == "" && category != "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and " +
+                        "(pet_category = @category and data=@dateTime)";
+                }
+                else if (city == "" && category == "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and " +
+                        "(data=@dateTime)";
+                }
+                else if (city != "" && category == "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and " +
+                        "(locality = @city)";
+                }
+                else if (city == "" && category != "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and " +
+                        "(pet_category = @category)";
+                }
+                else if (city != "" && category == "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and " +
+                        "(locality = @city and data=@dateTime)";
+                }
+                else if (city != "" && category != "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and " +
+                        "(pet_category = @category and locality = @city)";
+                }
+                else if (city != "" && category != "" && dateTime.ToString() != "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo and " +
+                        "(pet_category = @category and locality = @city and data=@dateTime)";
+                }
+                else if (city == "" && category == "" && dateTime.ToString() == "01.01.1900 0:00:00")
+                {
+                    str = "SELECT id_find, pets_gender, data, locality, pet_category, discription, phone, id_user, photo.photo FROM [ads_finding], [photo_find], [photo] where photo_find.id_finds = ads_finding.id_find and photo_find.id_photo = photo.id_photo";
+                }
+
+                command.CommandText = str;
+                command.Parameters.AddWithValue("@city", city);
+                command.Parameters.AddWithValue("@category", category);
+                command.Parameters.AddWithValue("@dateTime", dateTime);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PetInfo2 pet = new PetInfo2();
+
+                        pet.Id = reader.GetInt64(0);
+                        pet.Gender = reader.GetString(1);
+                        pet.Date = reader.GetDateTime(2);
+                        pet.Locality = reader.GetString(3);
+                        pet.Category = reader.GetString(4);
+                        pet.Discription = reader.GetString(5);
+                        pet.Phone = reader.GetString(6);
+                        pet.UserId = reader.GetInt64(7);
+                        pet.Photo = reader.GetString(8);
+
+                        result1.Add(pet);
+                    }
+                }
+            }
             return result1;
         }
 

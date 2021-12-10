@@ -15,20 +15,10 @@ namespace PISos
     public partial class UserForm : Form
     {
         private DataProvider Db;
-        private UserInfo user;
+        private long id;
         public UserForm()
         {
             InitializeComponent();           
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button15_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -55,25 +45,20 @@ namespace PISos
             f2.ShowDialog();
         }
 
-        private void label1_Click_1(object sender, EventArgs e)
+        public void ShowDialog(long userId)
         {
-
+            id = userId;
+            this.ShowDialog();
         }
 
         public void Home_Load(object sender, EventArgs e)
         {
-            user = Db.GetUser(textBox1.Text, textBox2.Text);
-            Session.User = user;
-            var id = user.Id;
             Db = new DataProvider();
             petInfoBindingSource.DataSource = Db.GetLostPets();
             petInfo2BindingSource.DataSource = Db.GetFindPets();
             myPetBindingSource.DataSource = Db.GetMyPets(id);
-            
-        }
-
-        private void Filtr()
-        {
+            petInfoBindingSource1.DataSource = Db.GetMyAdsLost(id);
+            petInfo2BindingSource1.DataSource = Db.GetMyAdsFind(id);
 
         }
 
@@ -101,11 +86,6 @@ namespace PISos
         {
         }
 
-        private void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         public class Ad
         {
 
@@ -113,10 +93,7 @@ namespace PISos
             {
                 
             }
-            public void LookMy()
-            {
 
-            }
             public static Register AddAd(string petgender, int idphoto, int data, string locality, string petcathegory, string discription, int phone)
             {
                 return new Register();
@@ -138,30 +115,120 @@ namespace PISos
             Db.Dispose();
         }
 
-        private void tabControl4_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button19_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
             PetCard f2 = new PetCard();
             f2.ShowDialog();
         }
 
-        private void tabControl3_SelectedIndexChanged(object sender, EventArgs e)
+        private void button16_Click(object sender, EventArgs e)
         {
+            var city = comboBox5.Text;
+            var category = comboBox7.Text;
+            var data = dateTimePicker2.Value.Date;
+            petInfo2BindingSource.DataSource = Db.FiltrforFind2(city, category, data);
+        }
 
+        private void button19_Click(object sender, EventArgs e)
+        {
+            var city = comboBox6.Text;
+            var category = comboBox2.Text;
+            var data = dateTimePicker1.Value.Date;
+            petInfoBindingSource.DataSource = Db.FiltrforFind1(city, category, data);          
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker1.CustomFormat = "dd.MM.yyyy";
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            comboBox6.Text = "";
+            comboBox2.Text = "";
+            dateTimePicker1.Value = new DateTime(1900, 01, 01);
+            dateTimePicker1.CustomFormat = "01.01.1900";
+            petInfoBindingSource.DataSource = Db.GetLostPets();
+        }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker2.CustomFormat = "dd.MM.yyyy";
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            comboBox5.Text = "";
+            comboBox7.Text = "";
+            dateTimePicker2.Value = new DateTime(1900, 01, 01);
+            dateTimePicker2.CustomFormat = "01.01.1900";
+            petInfo2BindingSource.DataSource = Db.GetFindPets();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            var city = comboBox3.Text;
+            var category = comboBox9.Text;
+            var data = dateTimePicker4.Value.Date;
+            petInfo2BindingSource1.DataSource = Db.FiltrforMyAds1(id, city, category, data);
+        }
+
+        private void dateTimePicker4_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker4.CustomFormat = "dd.MM.yyyy";
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            comboBox3.Text = "";
+            comboBox9.Text = "";
+            dateTimePicker4.Value = new DateTime(1900, 01, 01);
+            dateTimePicker4.CustomFormat = "01.01.1900";
+            petInfo2BindingSource1.DataSource = Db.GetMyAdsFind(id);
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            var city = comboBox4.Text;
+            var category = comboBox10.Text;
+            var data = dateTimePicker5.Value.Date;
+            petInfo2BindingSource1.DataSource = Db.FiltrforMyAds1(id, city, category, data);
+        }
+
+        private void dateTimePicker5_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker5.CustomFormat = "dd.MM.yyyy";
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            comboBox4.Text = "";
+            comboBox10.Text = "";
+            dateTimePicker5.Value = new DateTime(1900, 01, 01);
+            dateTimePicker5.CustomFormat = "01.01.1900";
+            petInfo2BindingSource1.DataSource = Db.GetMyAdsLost(id);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var city = comboBox1.Text;
+            var category = comboBox8.Text;
+            var data = dateTimePicker3.Value.Date;
+            myPetBindingSource.DataSource = Db.FiltrforMyPets(id, city, category, data);
+        }
+
+        private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker3.CustomFormat = "dd.MM.yyyy";
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            comboBox1.Text = "";
+            comboBox8.Text = "";
+            dateTimePicker3.Value = new DateTime(1900, 01, 01);
+            dateTimePicker3.CustomFormat = "01.01.1900";
+            myPetBindingSource.DataSource = Db.GetMyPets(id);
         }
     }
 }
